@@ -69,7 +69,6 @@ function BookQuiz () {
 
   this.init = function () {
     fill_book_choices();
-    $book_selector.hide();
     this.start_quiz();
   }  
 

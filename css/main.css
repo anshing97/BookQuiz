@@ -140,6 +140,10 @@ i {
 
 /* book seletor */
 
+#book-selector {
+  display: none;
+}
+
 #book-selector p {
   color: #FFF;
   text-align: center;
