@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <title>Book Match</title>
+  <meta charset="utf-8">    
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
+</head>
+<body>  
+  <header> 
+    <div class="container">
+      <h1>Book Match</h1>
+      <p id="count">1 / 5</p>      
+    </div>
+  </header> 
+  <div id ="question" class="container">
+    <img id="cover" src="img/book.png" alt="Book Cover">
+    <h3 id="title"><span class="highlight">Book Title</span></h3>
+    <h4 id="author"><span class="highlight">Author</span></h4>
+    <p id="review">A gargantuan, mind-altering comedy about the pursuit of happiness in America. Set in an addicts' halfway house and a tennis academy, and featuring the most endearingly screwed-up family to come along in recent fiction, this book explores essential questions about what entertainment is and why it has come to so dominate our lives; about how our desire for entertainment affects our need to connect with other people; and about what the pleasures we choose say about who we are.</p>
+    <div id="controls">
+      <div id="message"></div>
+      <button id="submit">Submit Answer</button>     
+      <button id="again">Guess Again</button>             
+      <button id="next">Next Question</button>     
+    </div>
+  </div>
+  <div id="book-selector" class="shadow-box">
+    <div id="choices" class="container">
+    </div>
+  </div>
+  <div id="results" class="shadow-box">
+    <div class="centered">
+      <p></p>
+      <button id="restart">Try Again</button>
+    </div>
+  </div>
+  <script src="js/jquery-1.10.2.min.js"></script>
+  <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+  <script src="js/app.js"></script>  
+</body>
+</html>
