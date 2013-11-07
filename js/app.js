@@ -1,7 +1,25 @@
+/* cache these selectors */ 
+
+/* views */ 
+var $book_selector = $('#book-selector');
+var $results = $('#results');
+
+/* btns */ 
+var $btn_next = $('#next');
+var $btn_again = $('#again');
+var $btn_submit = $('#submit');
+var $btn_restart = $('#restart');
+
+/* book views */ 
+var $book_title = $("#title");
+var $book_author = $('#author');
+var $book_review = $('#review');
+var $book_cover = $('#cover');
+
+/* our quiz app */ 
 function BookQuiz () {
 
   /* private vars */
-
   var at_last     = { title: "At Last", author: "Edward St. Aubyn", img: "at_last.jpg" };
   var bloodland   = { title: "Bloodland", author: "Alan Glynn", img: "bloodland.jpg" };
   var wind_up     = { title: "The Wind Up Bird Chronicle", author: "Haruki Murakami", img: "wind_up.jpg" };
@@ -38,10 +56,12 @@ function BookQuiz () {
 
   var fill_book_choices = function () {
 
+    var $choices = $('#choices');
+
     for ( var ii = 0; ii < books.length; ii++ ) {
       var book = books[ii];
       var html = '<label><input type="radio" name="books"><img src="img/' + book.img + '""></label>';
-      $('#choices').append(html);
+      $choices.append(html);
     }
   }
 
@@ -49,36 +69,38 @@ function BookQuiz () {
 
   this.init = function () {
     fill_book_choices();
-    $('#book-selector').hide();
+    $book_selector.hide();
     this.start_quiz();
   }  
-
 
   this.start_quiz = function () {
     index = 0; 
     correct = 0; 
     this.next_question();
 
-    $("button#next").html("Next Question");
+    $btn_next.html("Next Question");
   }
+
+  var $question_count = $('#question-count');
 
   this.render_question = function (num) {
     curr_question = questions[num];
 
-    $('#cover').attr('src','img/book.png');
-    $('#title').html('<span class="highlight">Title</span>');
-    $('#author').html('<span class="highlight">Author</span>');
-    $('#review').html(curr_question.review);
+    $book_cover.attr('src','img/book.png');
+    $book_title.html('<span class="highlight">Title</span>');
+    $book_author.html('<span class="highlight">Author</span>');
+    $book_review.html(curr_question.review);
 
     // show the right buttons
-    $('#next, #again').hide();
-    $('#submit').show();
+    $btn_next.hide();
+    $btn_again.hide();
+    $btn_submit.show();
 
     // uncheck last selection 
     $('input[type="radio"]:checked').prop('checked', false);
 
     // update the count
-    $('#count').html( ( num + 1 ) + ' / ' + questions.length);
+    $question_count.html( ( num + 1 ) + ' / ' + questions.length);
 
     // clear any message 
     this.clear_message();
@@ -91,7 +113,7 @@ function BookQuiz () {
     index++; 
 
     if ( this.last_question() ) {
-      $("#next").html("See My Score");
+      $btn_next.html("See My Score");
     }
   }
 
@@ -102,30 +124,30 @@ function BookQuiz () {
   this.select_book = function ( num ) {
     curr_book = books[num];
 
-    $('#cover').attr('src','img/' + curr_book.img);
-    $('#title').html(curr_book.title);
-    $('#author').html(curr_book.author);
+    $book_cover.attr('src','img/' + curr_book.img);
+    $book_title.html(curr_book.title);
+    $book_author.html(curr_book.author);
   }
 
   this.test_answer = function () {
 
     if ( curr_book === curr_question.answer ) {
       this.show_message("That is the correct book","success checkmark")
-      $('button#again').hide(); 
+      $btn_again.hide(); 
       correct++; 
     } else {
       this.show_message("That is the not the right book","warning xmark")
-      $('#cover').effect( "shake" );
-      $('button#again').show(); 
+      $book_cover.effect( "shake" );
+      $btn_again.show(); 
     }
 
-    $('button#submit').hide();
-    $('button#next').show();
+    $btn_submit.hide();
+    $btn_next.show();
 
   }
 
   this.answered_correctly = function () {
-    return $('button#again').is(':hidden') && $('button#submit').is(':hidden');
+    return $btn_again.is(':hidden') && $btn_submit.is(':hidden');
   }
 
   this.selected_a_book = function () {
@@ -152,14 +174,14 @@ $(document).ready(function(){
 
   var quiz = new BookQuiz();
 
-  $('#book-selector').click(function(){
+  $book_selector.click(function(){
     $(this).fadeOut('fast');
     quiz.clear_message();
   })
 
-  $('#cover, #title, #author').click(function(){
+  $book_cover.add($book_author).add($book_title).click(function(){
     if ( ! quiz.answered_correctly() ) {
-      $('#book-selector').fadeIn('fast');
+      $book_selector.fadeIn('fast');
     }
   })
 
@@ -168,7 +190,7 @@ $(document).ready(function(){
     quiz.select_book(selection);
   })
 
-  $('#submit, #again').click(function() {
+  $btn_submit.add($btn_again).click(function() {
     if ( quiz.selected_a_book() ) {
       quiz.test_answer();
     } else {
@@ -176,17 +198,17 @@ $(document).ready(function(){
     }
   })
 
-  $('#next').click(function(){
+  $btn_next.click(function(){
     if ( quiz.last_question() ) {
       quiz.show_results();
-      $("#results").fadeIn('fast');
+      $results.fadeIn('fast');
     } else {
       quiz.next_question();
     }
   })
 
-  $("#restart").click(function(){
-    $('#results').fadeOut('fast');
+  $btn_restart.click(function(){
+    $results.fadeOut('fast');
     quiz.start_quiz();     
   });
 
