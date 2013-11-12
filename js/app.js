@@ -15,6 +15,11 @@ var $book_title = $("#title");
 var $book_author = $('#author');
 var $book_review = $('#review');
 var $book_cover = $('#cover');
+var $book_cover_message = $('p',$book_cover);
+var $cover_img = $('img',$book_cover);
+
+/* message */ 
+var $message = $('#message');
 
 /* our quiz app */ 
 function BookQuiz () {
@@ -85,7 +90,8 @@ function BookQuiz () {
   this.render_question = function (num) {
     curr_question = questions[num];
 
-    $book_cover.attr('src','img/book.png');
+    $cover_img.attr('src','img/book.png');
+    $book_cover_message.html('Select Book');
     $book_title.html('<span class="highlight">Title</span>');
     $book_author.html('<span class="highlight">Author</span>');
     $book_review.html(curr_question.review);
@@ -123,7 +129,8 @@ function BookQuiz () {
   this.select_book = function ( num ) {
     curr_book = books[num];
 
-    $book_cover.attr('src','img/' + curr_book.img);
+    $cover_img.attr('src','img/' + curr_book.img);
+    $('p',$book_cover).html('');
     $book_title.html(curr_book.title);
     $book_author.html(curr_book.author);
   }
@@ -154,15 +161,15 @@ function BookQuiz () {
   }
 
   this.show_message = function (text, text_class) {
-    $('#message').html("<p class='" + text_class + "''>" + text + "</p>")
+    $message.html("<p class='" + text_class + "''>" + text + "</p>")
   }
 
   this.clear_message = function () {
-    $('#message p').remove();
+    $('p',$message).remove();
   }
 
   this.show_results = function () {
-    $("#results p").html("You matched " + correct + " of " + questions.length + " books correctly");
+    $('p',$results).html("You matched " + correct + " of " + questions.length + " books correctly");
   }
 
   this.init();

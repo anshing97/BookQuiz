@@ -74,11 +74,24 @@ i {
   margin-top: 150px;
 }
 
+
 #cover {
   float: left;
   margin-right: 30px;
   margin-bottom: 50px;
+  position: relative;
+}
+
+#cover img {
   width: 300px;  
+}
+
+#cover p {
+  font-size: 16px;
+  position: absolute;
+  left: 110px;
+  top: 200px;
+  color: #BBB;
 }
 
 #title {
